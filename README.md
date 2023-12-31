@@ -7,7 +7,7 @@ This project is simple console command that could parse some html tags.
 
 ```
 1. Clone the repo and open project folder
-2. run composer init from Terminal
+2. run composer install from Terminal
 3. Make sure that `bin/console` file have executive rights
 ```
 
