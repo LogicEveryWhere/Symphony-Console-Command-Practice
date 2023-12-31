@@ -7,6 +7,7 @@ use Console\App\Entities\Translation;
 use Console\App\Entities\TranslationUnit;
 use Console\App\OutputEnhancer;
 use Console\App\Parser;
+use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -66,8 +67,8 @@ class ParseCommand extends Command
 
         try {
             $crawler = new Parser($html);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
             return Command::FAILURE;
         }
 
@@ -83,7 +84,10 @@ class ParseCommand extends Command
         {
             $wordQuestion = new Question('Please enter translation for ' . $text .': ');
             $originWord = new TranslationUnit($text, $inputLang);
-            $word = $helper->ask($input, $output, $wordQuestion);
+            $word = $helper->ask($input, $output, $wordQuestion); 
+            if (empty($word)) {
+                throw new \Exception('Translation can\'t be empty');
+            }
             $storage->persist(new Translation($originWord, $word, $lang));
             $consoleOutput->separator();
         }
