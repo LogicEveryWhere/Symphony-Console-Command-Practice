@@ -18,6 +18,7 @@ class Storage implements Persistence {
     public function persist(Translation $data)
     {
         $this->data[$this->lastId] = $data;
+        $this->generateId();
     }
 
     public function retrieve(int $id): Translation

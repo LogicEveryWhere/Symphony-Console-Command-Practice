@@ -1,5 +1,5 @@
 
-# Symphony Console Command
+# Symfony Console Command
 
 This project is simple console command that could parse some html tags.
 
@@ -38,7 +38,7 @@ currently supported tags:
 ]
 ```
 
+## Used Libraries
 
-
-
-
+[Symfony Console Command ](https://symfony.com/doc/current/components/console.html)
+[Symfony The DomCrawler Component](https://symfony.com/doc/current/components/dom_crawler.html)

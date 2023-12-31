@@ -12,7 +12,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
+
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 
@@ -60,6 +60,7 @@ class ParseCommand extends Command
             $availableLanguages,
             0
         );
+        $langQuestion->setAutocompleterValues($availableLanguages);
         $langQuestion->setErrorMessage('Selected lang %s is invalid.');
 
 
@@ -88,7 +89,6 @@ class ParseCommand extends Command
         }
 
         $progressBar = new ProgressBar($output, $storage->getCount());
- 
             $consoleOutput->info('Pseudo saving and processing');
             $progressBar->start();
             if (is_array($texts) && count($texts))
@@ -101,7 +101,9 @@ class ParseCommand extends Command
             }
             $progressBar->finish();
 
-        // var_dump($texts);
+            $consoleOutput->printTranslations($storage->getAll(), $inputLang,  $lang);
+
+
 
         return Command::SUCCESS;
     }
